@@ -1,0 +1,98 @@
+---
+project: 
+  title: "ESS330-Exercise 9/10"
+  output-dir: docs
+  
+format: 
+  html:
+    self-contained: true
+---
+
+#1:Use the help (?) function to learn more about the dataset
+
+```{r}
+?airquality
+
+```
+
+#2:Use vis_dat to check out the data. Does it need cleaning?
+
+```{r}
+install.packages("visdat", repos = "https://cran.rstudio.com/")
+library(visdat)
+vis_dat(airquality)
+```
+#2: Cleaning to remove NA data
+```{r}
+airquality_cleaned <- na.omit(airquality)
+airquality$Ozone[is.na(airquality$Ozone)] <- mean(airquality$Ozone, na.rm = TRUE)
+airquality_cleaned <- na.omit(airquality)
+airquality$Ozone[is.na(airquality$Ozone)] <- mean(airquality$Ozone, na.rm = TRUE)
+airquality$Solar.R[is.na(airquality$Solar.R)] <- mean(airquality$Solar.R, na.rm = TRUE)
+airquality$Ozone[is.na(airquality$Ozone)] <- median(airquality$Ozone, na.rm = TRUE)
+airquality$Solar.R[is.na(airquality$Solar.R)] <- median(airquality$Solar.R, na.rm = TRUE)
+```
+
+
+```{r}
+vis_dat(airquality)
+```
+
+#3: Linear Model 
+```{r}
+lm_model <- lm(Ozone ~ Solar.R, data = airquality)
+```
+
+#4: Summary Eval
+```{r}
+lm_model <- lm(Ozone ~ Solar.R, data = airquality)
+summary(lm_model)
+```
+#5: The R^2 found with a value of 0.09179 suggests that 9.2% of the variation in ozone levels can be explained by solar radiation in this model, which suggests that solar radiation itself is not a strong predictor of ozone levels.
+
+#6 Use broom::augment to predict the Ozone of the cleaned data
+```{r}
+install.packages("broom", repos = "https://cran.rstudio.com/")
+library(broom)
+augmented_data <- augment(lm_model, data = airquality)
+head(augmented_data)
+```
+
+#7: Use ggplot to plot the actual vs predicted Ozone
+
+```{r}
+library(ggplot2)
+ggplot(augmented_data, aes(x = .fitted, y = Ozone)) +
+  geom_point() +                        
+  geom_smooth(method = "lm", se = FALSE, color = "red") + 
+  labs(title = "Actual vs Predicted Ozone",
+       x = "Predicted Ozone",
+       y = "Actual Ozone") +
+  theme_minimal()
+```
+#7a:Add a red line to show where the actual and predicted values are equal This can be done by plotting a 1:1 line (e.g. intercept 0, slope 1) with geom_abline(intercept = 0, slope = 1, color = "red")
+#7b:Add a subtitle to the plot showing the correlation between the actual and predicted values are equal This can be done by plotting a 1:1 line (e.g. intercept 0, slope 1) with
+#7c: paste("Correlation:", round(cor(a$Ozone, a$.fitted),2)) assuming your augmented data object is called a
+```{r}
+library(ggplot2)
+correlation_value <- round(cor(augmented_data$Ozone, augmented_data$.fitted), 2)
+ggplot(augmented_data, aes(x = .fitted, y = Ozone)) +
+  geom_point() +                         
+  geom_smooth(method = "lm", se = FALSE, color = "blue") + 
+  geom_abline(intercept = 0, slope = 1, color = "red") +
+  labs(
+    title = "Actual vs Predicted Ozone",
+    x = "Predicted Ozone",
+    y = "Actual Ozone",
+    subtitle = paste("Correlation:", correlation_value)
+  ) +
+  theme_minimal()
+```
+
+
+
+
+
+
+
+
