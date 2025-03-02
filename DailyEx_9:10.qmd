@@ -3,6 +3,9 @@ project:
   title: "ESS330-Exercise 9/10"
   output-dir: docs
   
+author: "Olivia Gilpin"
+date: "2025-03-02"
+  
 format: 
   html:
     self-contained: true
