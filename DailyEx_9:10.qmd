@@ -1,31 +1,30 @@
 ---
-project: 
-  title: "ESS330-Exercise 9/10"
-  output-dir: docs
-  
+title: "ESS330-Exercise 9/10"
 author: "Olivia Gilpin"
 date: "2025-03-02"
+output-dir: docs
   
 format: 
   html:
     self-contained: true
 ---
 
-#1:Use the help (?) function to learn more about the dataset
+#1: Use the help (?) function to learn more about the dataset
 
 ```{r}
 ?airquality
 
 ```
 
-#2:Use vis_dat to check out the data. Does it need cleaning?
+#2: Use vis_dat to check out the data. Does it need cleaning?
 
 ```{r}
 install.packages("visdat", repos = "https://cran.rstudio.com/")
 library(visdat)
 vis_dat(airquality)
 ```
-#2: Cleaning to remove NA data
+#2 Continued: Cleaning to remove NA data as needed per graph shown above.
+
 ```{r}
 airquality_cleaned <- na.omit(airquality)
 airquality$Ozone[is.na(airquality$Ozone)] <- mean(airquality$Ozone, na.rm = TRUE)
@@ -41,12 +40,14 @@ airquality$Solar.R[is.na(airquality$Solar.R)] <- median(airquality$Solar.R, na.r
 vis_dat(airquality)
 ```
 
-#3: Linear Model 
+#3: Linear Model: I chose Solar.R because solar radiation is directly related to the formation of ozone in the atmosphere, which makes it a relevant predictor for ozone levels.
+
 ```{r}
 lm_model <- lm(Ozone ~ Solar.R, data = airquality)
 ```
 
-#4: Summary Eval
+#4: Summary Eval: This seems like a valid model due to it being statistically significant, indicated by the low R-squared value, which suggests that Solar.R only explains a small portion of the variance in Ozone, indicating that the model may not be highly predictive.
+
 ```{r}
 lm_model <- lm(Ozone ~ Solar.R, data = airquality)
 summary(lm_model)

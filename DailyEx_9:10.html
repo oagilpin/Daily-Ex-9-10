@@ -9,7 +9,7 @@
 <meta name="author" content="Olivia Gilpin">
 <meta name="dcterms.date" content="2025-03-02">
 
-<title>dailyex_910</title>
+<title>ESS330-Exercise 9/10</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3225,6 +3225,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
+<h1 class="title">ESS330-Exercise 9/10</h1>
 </div>
 
 
@@ -3253,17 +3254,17 @@ window.Quarto = {
 </header>
 
 
-<p>#1:Use the help (?) function to learn more about the dataset</p>
+<p>#1: Use the help (?) function to learn more about the dataset</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>?airquality</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>#2:Use vis_dat to check out the data. Does it need cleaning?</p>
+<p>#2: Use vis_dat to check out the data. Does it need cleaning?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;visdat&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;https://cran.rstudio.com/&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/t3/7zz1s48n32q56qbxfmjx19180000gn/T//RtmpZSxkWq/downloaded_packages</code></pre>
+    /var/folders/t3/7zz1s48n32q56qbxfmjx19180000gn/T//RtmpxrBHgK/downloaded_packages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visdat)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_dat</span>(airquality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3275,7 +3276,7 @@ The downloaded binary packages are in
 </div>
 </div>
 </div>
-<p>#2: Cleaning to remove NA data</p>
+<p>#2 Continued: Cleaning to remove NA data as needed per graph shown above.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>airquality_cleaned <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(airquality)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>airquality<span class="sc">$</span>Ozone[<span class="fu">is.na</span>(airquality<span class="sc">$</span>Ozone)] <span class="ot">&lt;-</span> <span class="fu">mean</span>(airquality<span class="sc">$</span>Ozone, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
@@ -3295,11 +3296,11 @@ The downloaded binary packages are in
 </div>
 </div>
 </div>
-<p>#3: Linear Model</p>
+<p>#3: Linear Model: I chose Solar.R because solar radiation is directly related to the formation of ozone in the atmosphere, which makes it a relevant predictor for ozone levels.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Ozone <span class="sc">~</span> Solar.R, <span class="at">data =</span> airquality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>#4: Summary Eval</p>
+<p>#4: Summary Eval: This seems like a valid model due to it being statistically significant, indicated by the low R-squared value, which suggests that Solar.R only explains a small portion of the variance in Ozone, indicating that the model may not be highly predictive.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Ozone <span class="sc">~</span> Solar.R, <span class="at">data =</span> airquality)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3331,7 +3332,7 @@ F-statistic: 15.26 on 1 and 151 DF,  p-value: 0.0001409</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 The downloaded binary packages are in
-    /var/folders/t3/7zz1s48n32q56qbxfmjx19180000gn/T//RtmpZSxkWq/downloaded_packages</code></pre>
+    /var/folders/t3/7zz1s48n32q56qbxfmjx19180000gn/T//RtmpxrBHgK/downloaded_packages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>augmented_data <span class="ot">&lt;-</span> <span class="fu">augment</span>(lm_model, <span class="at">data =</span> airquality)</span>
